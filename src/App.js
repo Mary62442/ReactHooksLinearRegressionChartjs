@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import LineGraph from './LineGraph';
-import ScatterGraph from './ScatterGraph';
+
 
 function App() {
 
   let x = [1,2,3,4,5,6,7,8];
-  let y = [12,34,45,55,67,82,94,111]; 
-
+  let y = [12,44,45,55,57,82,94,131]; 
+  const [a, setA] = useState(0);
+  const [b, setB] = useState(0);  
   const [linearRegY, setLinearRegY] = useState([])
  
   const calculateAlpha = (n, sigmaX, sigmaY, sigmaXY, sigmaXpow2) => {
@@ -41,23 +42,21 @@ function App() {
     let sigmaXpow2 = Xpow2Arr.reduce((tot,curr) => tot+curr);
     let sigmaYpow2 = Ypow2Arr.reduce((tot,curr) => tot+curr);
 
-    let a = calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
-    let b = calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2, sigmaYpow2);
+    setA(calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2));
+    setB(calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2, sigmaYpow2));
 
     let regY = x.reduce((tot,curr)=> {
       tot.push((curr*b)+a);
       return tot;
-    }, []);    
+    }, []); 
+
     setLinearRegY(regY)    
-  }, [x, y])
+  }, [a, b, x, y])
 
   return (
-    <div>
-           
-      <LineGraph x={x} y={linearRegY}/>
-      <ScatterGraph/>
-      
-     
+    <div>        
+      <LineGraph x={x} y={y} yReg={linearRegY} />  
+      <h1>Y = {a.toFixed(3)} + {b.toFixed(3)}X</h1> 
     </div>
   );
 }

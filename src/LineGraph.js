@@ -13,47 +13,60 @@ function LineGraph(props) {
             labels: props.x,
             datasets: [{ 
                 data: props.y,
-                label: "Graph",
+                label: "Original Data",
                 borderColor: "green",
+                fill: false,  
+                pointStyle: "cross", 
+                borderWidth:0.001,
+                pointBorderWidth:3,
+                pointHoverRadius:5,
+                pointRadius: 5,           
+                animation:false,
+                lineTension:0                
+            },
+            { 
+                data: props.yReg,
+                label: "Linear Regression (Line of Best Fit)",
+                borderColor: "red",
                 fill: false,           
                 borderWidth: 1,
-                pointRadius: 2,           
+                pointRadius: 3,           
                 animation:false,
-                cubicInterpolationMode:'monotone'  
+                lineTension:0                
             }]
         },
-        options: {
+        options: {            
             animation: {
-            duration: 0,
+                duration: 0,
             },
             hover: {
-            animationDuration: 0,
+                animationDuration: 0,
             },
             responsiveAnimationDuration: 0,     
             scales: {        
-            yAxes: [{
-                display: true,
-                ticks: {
-                min: 0,
-                //stepSize: 15,              
-                max: props.y[props.y.length-1]
-                }
-            }],
-            xAxes: [{
-                display: true,
-                ticks: {
-                max: props.x[props.x.length-1],
-                min: 0,
-                stepSize: 0.5
-                }
-            }]
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                    min: 0,
+                    //stepSize: 15,              
+                    max: props.y[props.y.length-1]
+                    }
+                }],
+                xAxes: [{
+                    display: true,
+                    ticks: {
+                    max: props.x[props.x.length-1],
+                    min: 0,
+                    stepSize: 0.5
+                    }
+                }]
             },
             title: {
-            display: true,
-            text: 'Graph',        
+                display: true,
+                text: "Linear regression",        
             },
             responsive: false,
-            maintainAspectRatio:true,   
+            maintainAspectRatio:true            
         }
         }, [props.x,props.y]);
     });
