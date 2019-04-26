@@ -5,7 +5,7 @@ import Chart from "chart.js";
 function LineGraph(props) {
     const graphLineRef = useRef();
 
-    useEffect(() => {
+    useEffect(() => {              
         let canvasTDContext = graphLineRef.current.getContext('2d');
         let lineGraph = new Chart(canvasTDContext, {
         type: 'line',
@@ -65,14 +65,17 @@ function LineGraph(props) {
                 display: true,
                 text: "Linear regression",        
             },
-            responsive: false,
-            maintainAspectRatio:true            
+            responsive: true,
+            maintainAspectRatio:false            
         }
-        }, [props.x,props.y]);
-    });
+        });
+    },[props.yReg, props.x, props.y]);
 
     return (
-        <canvas height="400" width="800" ref={graphLineRef}></canvas>
+        <div>
+            <canvas height="400" width="800" ref={graphLineRef}></canvas>
+        </div>
+        
     );
 }
 
