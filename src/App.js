@@ -42,8 +42,8 @@ function App() {
     let sigmaXY = await xyArr.reduce((tot,curr) => tot+curr); 
     let sigmaXpow2 = await Xpow2Arr.reduce((tot,curr) => tot+curr);
     let sigmaYpow2 = await Ypow2Arr.reduce((tot,curr) => tot+curr);   
-    let alpha = await calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
-    let beta = await calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2, sigmaYpow2);
+    let alpha =  calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
+    let beta =  calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
 
     return { a: alpha, b:beta};    
   };

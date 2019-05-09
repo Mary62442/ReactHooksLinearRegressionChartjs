@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import './App.scss';
 import Chart from "chart.js";
-import { whileStatement } from '@babel/types';
 
 function LineGraph(props) {
     const graphLineRef = useRef();
 
     useEffect(() => {              
         let canvasTDContext = graphLineRef.current.getContext('2d');
-        let lineGraph = new Chart(canvasTDContext, {
+        new Chart(canvasTDContext, {
         type: 'line',
         data: {
             labels: props.x,
