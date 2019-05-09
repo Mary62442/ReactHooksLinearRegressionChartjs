@@ -31,17 +31,12 @@ function App() {
       tot.push(Math.pow(curr, 2));
       return tot;
     }, [])
-
-    let Ypow2Arr = await y.reduce((tot, curr) => {
-      tot.push(Math.pow(curr, 2));
-      return tot;
-    }, []);
+    
 
     let sigmaX = await x.reduce((tot,curr) => tot+curr);
     let sigmaY = await y.reduce((tot,curr) => tot+curr);    
     let sigmaXY = await xyArr.reduce((tot,curr) => tot+curr); 
-    let sigmaXpow2 = await Xpow2Arr.reduce((tot,curr) => tot+curr);
-    let sigmaYpow2 = await Ypow2Arr.reduce((tot,curr) => tot+curr);   
+    let sigmaXpow2 = await Xpow2Arr.reduce((tot,curr) => tot+curr);    
     let alpha =  calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
     let beta =  calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
 

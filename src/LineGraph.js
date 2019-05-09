@@ -12,8 +12,7 @@ function LineGraph(props) {
         data: {
             labels: props.x,
             datasets: [{ 
-                data: props.y,
-              
+                data: props.y,              
                 label: "Original Data",
                 borderColor: "lime",
                 backgroundColor: "lime",
