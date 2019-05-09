@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import LineGraph from './LineGraph';
+import InputData from './InputData';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
     let beta = await calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2, sigmaYpow2);
 
     return { a: alpha, b:beta};    
-  }
+  };
 
   const updateLinRegGraph = async () => {
     let eq = await findLinRegEquation(x,y); 
@@ -59,16 +60,18 @@ function App() {
       setB(eq.b);
       setLinearRegY(regY);
     }  
-  }
+  };
 
   useEffect(()=> {
     updateLinRegGraph();    
-  }, [linearRegY, a, b, x, y])
+  }, [linearRegY, a, b, x, y]);
 
 
   return (
-    <div>        
+    <div>  
+       <InputData />      
       <LineGraph x={x} y={y} yReg={linearRegY} a={a}/>  
+     
       <h1>Y = {a.toFixed(3)} + {b.toFixed(3)}X</h1> 
     </div>
   );
