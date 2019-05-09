@@ -5,8 +5,9 @@ import InputData from './InputData';
 
 function App() {
 
-  let x = [1,2,3,4,5,6,7,8];
-  let y = [12,44,45,55,57,82,94,131]; 
+  const [x, setX] = useState([1,2,3,4,5,6,7,8]);
+  const [y, setY] = useState([12,44,45,55,57,82,94,131]); 
+  const [dataSet, setDataSet] = useState([])
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
   const [linearRegY, setLinearRegY] = useState([]);
@@ -57,6 +58,19 @@ function App() {
     }  
   };
 
+  const inputDataCallback = (data) => {
+    setDataSet(data);    
+  }
+  useEffect(() => {
+    if(dataSet.length >=2) {
+      let findNewX = dataSet.reduce((tot, curr) => {tot.push(parseFloat(curr.x)); return tot}, []);
+      let findNewY = dataSet.reduce((tot, curr) => {tot.push(parseFloat(curr.y)); return tot}, []);
+      console.log(findNewX, findNewY)
+    }
+    //########################################    
+
+  }, [dataSet])
+
   useEffect(()=> {
     updateLinRegGraph();    
   }, [linearRegY, a, b, x, y]);
@@ -64,7 +78,7 @@ function App() {
 
   return (
     <div>  
-       <InputData />      
+       <InputData callbackFromParent = {inputDataCallback}/>      
       <LineGraph x={x} y={y} yReg={linearRegY} a={a}/>  
      
       <h1>Y = {a.toFixed(3)} + {b.toFixed(3)}X</h1> 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 
-function InputData() { 
+function InputData(props) { 
 
     const [dataSet, setDataSet] = useState([]);
     const [currentX, setCurrentX] = useState("");
@@ -14,12 +14,14 @@ function InputData() {
         )
     });
 
-    const pushData = (e) => {
+    const pushData = async (e) => {
         setDataSet([...dataSet, {x:currentX === "" ? 0 : currentX, y:currentY === "" ? 0 :currentY}]);
         setCurrentX("");
-        setCurrentY("");
+        setCurrentY("");        
         e.preventDefault();
     }
+
+    useEffect (() => {props.callbackFromParent(dataSet);}, [dataSet])
 
     const handleCurrentX = (e) => { setCurrentX(e.target.value); }
     const handleCurrentY = (e) => { setCurrentY(e.target.value); }
