@@ -11,8 +11,20 @@ function LineGraph(props) {
     const [yAxisLabel, setYAxisLabel] = useState("Y Axis");
     
     
+    const findStepSize = (data, z) => {
+        if (data.length === 0) return 1;
+        let zArray = props.data.reduce((tot,curr) => {
+            tot.push(+curr[z]);
+            return tot;
+        },[]);
+        let maxZ = Math.max(...zArray);        
+        let zStepSize = Math.ceil(maxZ/(zArray.length > 10 ? 10 : zArray.length));
+        return zStepSize;
+    }
+    
 
-    useEffect(() => {      
+    useEffect(() => {    
+       
         if (typeof myChart !== "undefined") myChart.destroy();      
         let canvasTDContext = graphLineRef.current.getContext('2d');
         myChart = new Chart(canvasTDContext, {
@@ -65,9 +77,8 @@ function LineGraph(props) {
                     },
                     ticks: {
                         beginAtZero:true,
-                        min: 0,          
-                        //max: props.y[props.y.length+1],
-                        stepSize:10                     
+                        min: 0,  
+                        stepSize:findStepSize(props.data, "y")                     
                     },
                     scaleLabel: {
                         display: true,
@@ -80,12 +91,10 @@ function LineGraph(props) {
                     gridLines: {
                         color:"rgba(255,255,255,0.3)",
                     },
-                    ticks: {  
-                        suggestedMin: 0,                                      
+                    ticks: {                                                             
                         beginAtZero:true,
-                       // maxTicksLimit: props.x[props.x.length+1],
                         min: 0,
-                        stepSize:1                          
+                        stepSize:findStepSize(props.data, "x")                          
                     },
                     scaleLabel: {
                         display: true,                       

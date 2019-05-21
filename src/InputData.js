@@ -37,6 +37,7 @@ function InputData(props) {
                 <input type="submit"></input>
             </form>        
             {data}
+            <button onClick = {()=>{setDataSet([])}}>Clear data</button>
         </div>
     )
 }

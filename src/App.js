@@ -5,7 +5,8 @@ import InputData from './InputData';
 
 function App() {
 
-  const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
+  //const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
+  const [dataSet, setDataSet] = useState([]);
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
   const [linearReg, setLinearReg] = useState([]);
@@ -54,19 +55,22 @@ function App() {
       setLinearReg(regressionData);     
   };
 
-  const inputDataCallback = (data) => {
-    if(data.length >=1) {
-      setDataSet(data);   
-    }     
+  const inputDataCallback = (data) => {    
+      setDataSet(data);  
   };
 
   useEffect(()=> {
+    if (dataSet.length === 0) {
+      setLinearReg([]);
+      return;
+    }
     updateLinRegGraph();    
+      
   }, [dataSet]);
 
 
   return (
-    <div>  
+    <div className = "linear-regression-component-container">  
       <div className = "graph-input-container">
       <InputData className = "input-data-container" callbackFromParent = {inputDataCallback}/>      
       <LineGraph className = "graph-container" data = {dataSet} regData={linearReg} />  
