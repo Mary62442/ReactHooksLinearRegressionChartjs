@@ -5,12 +5,10 @@ import InputData from './InputData';
 
 function App() {
 
-  const [x, setX] = useState([1,2,3,4,5,6,7,8]);
-  const [y, setY] = useState([12,44,45,55,57,82,94,131]); 
-  const [dataSet, setDataSet] = useState([])
+  const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
-  const [linearRegY, setLinearRegY] = useState([]);
+  const [linearReg, setLinearReg] = useState([]);
  
   const calculateAlpha = (n, sigmaX, sigmaY, sigmaXY, sigmaXpow2) => {
     return ((sigmaY*sigmaXpow2) - (sigmaX*sigmaXY)) / ((n*sigmaXpow2) - Math.pow(sigmaX, 2))
@@ -20,66 +18,60 @@ function App() {
     return ((n*sigmaXY) - (sigmaX*sigmaY)) / ((n*sigmaXpow2) - Math.pow(sigmaX, 2))
   };
 
-  const findLinRegEquation = async (x,y) => {
+  const findLinRegEquation = async () => {     
 
-    let xyArr = await x.reduce((tot,curr,i) => {
-      let xy = curr * y[i];
+    let xyArr = await dataSet.reduce((tot,curr,i) => {
+      let xy = curr.x * curr.y;
       tot.push(xy);
       return tot;
-    }, []);
-
-    let Xpow2Arr = await x.reduce((tot, curr) => {
-      tot.push(Math.pow(curr, 2));
+    },[]);   
+       
+    let Xpow2Arr = await dataSet.reduce((tot, curr) => {
+      tot.push(Math.pow(curr.x, 2));
       return tot;
-    }, [])
-    
+    }, []); 
 
-    let sigmaX = await x.reduce((tot,curr) => tot+curr);
-    let sigmaY = await y.reduce((tot,curr) => tot+curr);    
+    let sigmaX = await dataSet.reduce((tot,curr) => +tot + +curr.x,[]);
+    let sigmaY = await dataSet.reduce((tot,curr) => +tot + +curr.y,[]);  
     let sigmaXY = await xyArr.reduce((tot,curr) => tot+curr); 
-    let sigmaXpow2 = await Xpow2Arr.reduce((tot,curr) => tot+curr);    
-    let alpha =  calculateAlpha(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
-    let beta =  calculateBeta(x.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
+    let sigmaXpow2 = await Xpow2Arr.reduce((tot,curr) => tot+curr); 
+    
+    let alpha =  calculateAlpha(dataSet.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
+    let beta =  calculateBeta(dataSet.length, sigmaX, sigmaY, sigmaXY, sigmaXpow2);
 
     return { a: alpha, b:beta};    
   };
 
   const updateLinRegGraph = async () => {
-    let eq = await findLinRegEquation(x,y); 
-    let regY = await x.reduce((tot,curr)=> {
-      tot.push((curr*eq.b)+eq.a);
+    let eq = await findLinRegEquation();   
+    let regressionData = await dataSet.reduce((tot,curr)=> {
+      tot.push({x:curr.x, y:(curr.x*eq.b)+eq.a});
       return tot;
-    }, []); 
+    }, []);  
 
-    if (linearRegY.length === 0) {
       setA(eq.a);
       setB(eq.b);
-      setLinearRegY(regY);
-    }  
+      setLinearReg(regressionData);     
   };
 
   const inputDataCallback = (data) => {
-    setDataSet(data);    
-  }
-  useEffect(() => {
-    if(dataSet.length >=2) {
-      let findNewX = dataSet.reduce((tot, curr) => {tot.push(parseFloat(curr.x)); return tot}, []);
-      let findNewY = dataSet.reduce((tot, curr) => {tot.push(parseFloat(curr.y)); return tot}, []);
-      console.log(findNewX, findNewY)
-    }
-    //########################################    
-
-  }, [dataSet])
+    if(data.length >=1) {
+      setDataSet(data);   
+    }     
+  };
 
   useEffect(()=> {
     updateLinRegGraph();    
-  }, [linearRegY, a, b, x, y]);
+  }, [dataSet]);
 
 
   return (
     <div>  
-       <InputData callbackFromParent = {inputDataCallback}/>      
-      <LineGraph x={x} y={y} yReg={linearRegY} a={a}/>  
+      <div className = "graph-input-container">
+      <InputData className = "input-data-container" callbackFromParent = {inputDataCallback}/>      
+      <LineGraph className = "graph-container" data = {dataSet} regData={linearReg} />  
+      </div>
+      
      
       <h1>Y = {a.toFixed(3)} + {b.toFixed(3)}X</h1> 
     </div>
