@@ -1,0 +1,15 @@
+@import '../mixins';
+
+.graph-input-container {
+    display:flex;
+    justify-content: center;
+}
+
+.graph-input-container button {
+@include buttonOrange();
+}
+
+.linear-regression-component-container input[type="submit"] {
+    @include buttonOrange();
+}
+

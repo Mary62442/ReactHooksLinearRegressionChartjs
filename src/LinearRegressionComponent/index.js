@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './App.scss';
-import LineGraph from './LineGraph';
-import InputData from './InputData';
+import './styles.scss';
+import LineGraph from './LineGraphComponent/index';
+import InputData from './InputDataComponent/index';
 
-function App() {
+function LinearRegression() {
 
   //const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
   const [dataSet, setDataSet] = useState([]);
@@ -71,6 +71,7 @@ function App() {
 
   return (
     <div className = "linear-regression-component-container">  
+    <h1>Linear Regression</h1>
       <div className = "graph-input-container">
       <InputData className = "input-data-container" callbackFromParent = {inputDataCallback}/>      
       <LineGraph className = "graph-container" data = {dataSet} regData={linearReg} />  
@@ -82,4 +83,4 @@ function App() {
   );
 }
 
-export default App;
+export default LinearRegression;

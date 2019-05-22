@@ -1,0 +1,20 @@
+@import '../../mixins';
+
+.linear-regression-chart-container {
+    width:70%;    
+}
+
+.set-axis-container {
+    display:flex;
+    margin:0 auto;
+    width:80%;
+    //justify-content: space-around;
+
+    > * {
+       // width:20%;
+    }
+
+    input {
+        //@include inputBorderBottom;
+    }
+}

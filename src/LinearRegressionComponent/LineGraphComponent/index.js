@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './App.scss';
+import './styles.scss';
 import Chart from "chart.js";
 let myChart;
 
@@ -73,7 +73,7 @@ function LineGraph(props) {
                 yAxes: [{
                     display: true,
                     gridLines: {
-                        color:"rgba(255,255,255,0.3)",
+                        color:"rgba(0,0,0,0.3)",
                     },
                     ticks: {
                         beginAtZero:true,
@@ -89,7 +89,7 @@ function LineGraph(props) {
                     type: 'linear',
                     position: 'bottom',
                     gridLines: {
-                        color:"rgba(255,255,255,0.3)",
+                        color:"rgba(0,0,0,0.3)",
                     },
                     ticks: {                                                             
                         beginAtZero:true,
@@ -103,15 +103,9 @@ function LineGraph(props) {
                 }],              
                 
             },
-            title: {
-                display: true,
-                text: "Linear regression", 
-                fontColor:"rgba(255,255,255,0.6)",
-                fontSize:20     
-            },
             legend: {
                 labels: {
-                    fontColor:"rgba(255,255,255,0.6)"    
+                    fontColor:"rgba(0,0,0,0.6)"    
                 }
             },
             responsive: true,
@@ -124,13 +118,15 @@ function LineGraph(props) {
     return (
         <div className = "linear-regression-chart-container">
            
+           <div className = "set-axis-container">
             <input ref={xAxisRef} type="text"></input>
-            <button onClick = {() => setXAxisLabel(xAxisRef.current.value)}>Set X Axis Label</button>
-        
+            <button onClick = {() => setXAxisLabel(xAxisRef.current.value)}>Set X Axis Label</button>        
             <input ref={yAxisRef} type="text"></input>
-            <button onClick = {() => setYAxisLabel(yAxisRef.current.value)}>Set X Axis Label</button>
+            <button onClick = {() => setYAxisLabel(yAxisRef.current.value)}>Set Y Axis Label</button>
             
-            <canvas height="400" width="800" ref={graphLineRef}></canvas>
+           </div>
+            
+            <canvas height="300" width="800" ref={graphLineRef}></canvas>
         </div>
         
     );

@@ -1,0 +1,24 @@
+@mixin buttonOrange {
+    background-color: #ff7403;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+    box-shadow: 0 3px 1px rgba(0,0,0,.3);    
+    border: none;
+    outline: none;
+
+    &:hover {
+        background-color: #b85300;
+        box-shadow: none;
+        cursor:pointer;
+    }
+}
+
+@mixin inputBorderBottom {
+    border: none;
+    border-bottom: 2px solid black;
+    outline:none;
+    text-align:center;
+}

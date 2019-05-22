@@ -1,0 +1,66 @@
+.input-data-main {
+    width:30%;
+}
+
+.input-data-container {   
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 5px 5px 40px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+    padding: 1em;
+    border-radius: 3px;
+
+    form {
+    display:flex;
+    width:100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+
+        input[type="submit"] {
+            width:100%;  
+            margin-top:1em;          
+        }
+    }
+}
+
+.labels-inputs-container {
+    display:flex;
+    width:50%;
+    align-items:center;
+
+    label {
+        width:30%;
+        text-align:center;
+    }
+    input {
+        width:70%;
+        border: none;
+        border-bottom: 2px solid black;
+        outline:none;
+        text-align:center;
+        &:focus {
+            border-bottom:2px solid grey;
+        }
+    }
+}
+
+.input-data-cells {
+    display:flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    p {
+        border-bottom: 1px solid grey;
+        margin:0.5em 0;
+        width:30%;
+        text-align:center;
+    }
+}
+
+.clear-data {
+    width:100%;
+    margin-top:1em;
+}
