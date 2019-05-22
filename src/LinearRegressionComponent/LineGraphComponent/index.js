@@ -117,7 +117,7 @@ function LineGraph(props) {
 
     return (
         <div className = "linear-regression-chart-container">
-           
+           <h3>Set Axes Labels</h3>
            <div className = "set-axis-container">
             <input ref={xAxisRef} type="text"></input>
             <button onClick = {() => setXAxisLabel(xAxisRef.current.value)}>Set X Axis Label</button>        
@@ -125,8 +125,10 @@ function LineGraph(props) {
             <button onClick = {() => setYAxisLabel(yAxisRef.current.value)}>Set Y Axis Label</button>
             
            </div>
+            <div className = "graph-canvas-container">
+            <canvas height="350" width="800" ref={graphLineRef}></canvas>
+            </div>
             
-            <canvas height="300" width="800" ref={graphLineRef}></canvas>
         </div>
         
     );

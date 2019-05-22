@@ -30,7 +30,8 @@ function InputData(props) {
 
     return(
         <div className = "input-data-main">
-            <div className = "input-data-container">        
+            <div className = "input-data-container"> 
+            <h3>Input Graph Data</h3>   
                 <form onSubmit={pushData}>
                     <div className = "labels-inputs-container">
                         <label>X:</label>

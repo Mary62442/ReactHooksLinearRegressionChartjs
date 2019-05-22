@@ -72,9 +72,11 @@ function LinearRegression() {
   return (
     <div className = "linear-regression-component-container">  
     <h1>Linear Regression</h1>
+    <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
+      <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
       <div className = "graph-input-container">
-      <InputData className = "input-data-container" callbackFromParent = {inputDataCallback}/>      
-      <LineGraph className = "graph-container" data = {dataSet} regData={linearReg} />  
+      <InputData  callbackFromParent = {inputDataCallback}/>      
+      <LineGraph  data = {dataSet} regData={linearReg} />  
       </div>
       
      

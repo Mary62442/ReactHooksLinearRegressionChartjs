@@ -1,14 +1,23 @@
+@import '../../mixins';
+
 .input-data-main {
     width:30%;
+    padding:2em 0;
 }
 
 .input-data-container {   
     width: 80%;
     margin: 0 auto;
-    box-shadow: 5px 5px 40px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 40px rgba(0,0,0,0.3);
     box-sizing: border-box;
     padding: 1em;
     border-radius: 3px;
+    text-align:center;
+    background-color:white;
+
+    h3 {
+        @include subtytle;
+    }
 
     form {
     display:flex;
@@ -36,13 +45,7 @@
     }
     input {
         width:70%;
-        border: none;
-        border-bottom: 2px solid black;
-        outline:none;
-        text-align:center;
-        &:focus {
-            border-bottom:2px solid grey;
-        }
+        @include inputBorderBottom        
     }
 }
 
@@ -63,4 +66,10 @@
 .clear-data {
     width:100%;
     margin-top:1em;
+}
+
+@media (max-width:800px) {
+    .input-data-main {
+        width:100%;
+    }
 }
