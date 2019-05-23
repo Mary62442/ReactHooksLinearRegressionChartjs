@@ -25,6 +25,8 @@ function InputData(props) {
 
     useEffect (() => {props.callbackFromParent(dataSet);}, [dataSet]);
 
+    useEffect (() => {setDataSet(props.data)}, [props.data])
+
     const handleCurrentX = (e) => { setCurrentX(e.target.value); };
     const handleCurrentY = (e) => { setCurrentY(e.target.value); };
 

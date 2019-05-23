@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './styles.scss';
 import LineGraph from './LineGraphComponent/index';
 import InputData from './InputDataComponent/index';
@@ -11,6 +11,9 @@ function LinearRegression() {
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
   const [linearReg, setLinearReg] = useState([]);
+  const myDataFile = useRef();
+  const formUpload = useRef()
+
  
   const calculateAlpha = (n, sigmaX, sigmaY, sigmaXY, sigmaXpow2) => {
     return ((sigmaY*sigmaXpow2) - (sigmaX*sigmaXY)) / ((n*sigmaXpow2) - Math.pow(sigmaX, 2))
@@ -52,8 +55,7 @@ function LinearRegression() {
     }, []);  
       setA(eq.a);
       setB(eq.b);
-      setLinearReg(regressionData);  
-         
+      setLinearReg(regressionData);           
   };
 
   const inputDataCallback = (data) => { 
@@ -67,9 +69,27 @@ function LinearRegression() {
       setB(0);
       return;
     }
-    updateLinRegGraph(); 
-      
+    updateLinRegGraph();     
   }, [dataSet]);
+
+
+  const acquireData = (e) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setDataSet(JSON.parse(event.target.result));  
+    };
+    reader.readAsText(e.target.files[0]); 
+  }
+
+  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+
+  const getRouletteData = () => {
+    let ar = new Array();
+    for(let counter = 0; counter < 1000; counter ++) ar.push({x:counter,y:getRandomInt(37)});
+    setDataSet(ar);
+  };
+
+  const resetForm = ()=>{ formUpload.current.reset(); }
 
 
   return (
@@ -77,6 +97,15 @@ function LinearRegression() {
       <h1>Linear Regression</h1>
       <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
       <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
+      
+
+      <form ref = {formUpload}>
+
+            <label for="files" >Select JSON file</label>         
+            <input hidden id="files" ref={myDataFile}  onChange={acquireData} onClick = {resetForm} type="file" />
+      </form>
+
+      <button onClick = {getRouletteData}>Roulette case</button>
       <div className = "graph-input-container">
       <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
       <LineGraph  data = {dataSet} regData={linearReg} />  
