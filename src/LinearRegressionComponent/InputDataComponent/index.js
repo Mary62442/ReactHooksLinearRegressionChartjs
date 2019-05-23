@@ -3,7 +3,7 @@ import './styles.scss';
 
 function InputData(props) { 
 
-    const [dataSet, setDataSet] = useState([]);
+    const [dataSet, setDataSet] = useState(props.data);
     const [currentX, setCurrentX] = useState("");
     const [currentY, setCurrentY] = useState("");
 
@@ -42,9 +42,11 @@ function InputData(props) {
                         <input type="text"  value={currentY} onChange={handleCurrentY}></input>   
                     </div>                    
                     <input type="submit"></input>
-                </form>        
-            {data}
-            {dataSet.length > 0 &&
+                </form>  
+                <div className ="input-cells-container">
+                    {data}
+                </div>  
+                {dataSet.length > 0 &&
                 <button className = "clear-data" onClick = {()=>{setDataSet([])}}>Clear data</button>
             }
         </div>

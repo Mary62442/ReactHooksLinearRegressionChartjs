@@ -13,17 +13,17 @@ function LineGraph(props) {
     
     const findStepSize = (data, z) => {
         if (data.length === 0) return 1;
-        let zArray = props.data.reduce((tot,curr) => {
+        let zArray = data.reduce((tot,curr) => {
             tot.push(+curr[z]);
             return tot;
         },[]);
         let maxZ = Math.max(...zArray);        
-        let zStepSize = Math.ceil(maxZ/(zArray.length > 10 ? 10 : zArray.length));
+        let zStepSize = Math.ceil(maxZ/(zArray.length > 10 ? 10 : zArray.length));       
         return zStepSize;
     }
     
 
-    useEffect(() => {    
+    useEffect(() => {   
        
         if (typeof myChart !== "undefined") myChart.destroy();      
         let canvasTDContext = graphLineRef.current.getContext('2d');

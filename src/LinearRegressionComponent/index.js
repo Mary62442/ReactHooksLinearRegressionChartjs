@@ -5,8 +5,8 @@ import InputData from './InputDataComponent/index';
 
 function LinearRegression() {
 
-  //const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
-  const [dataSet, setDataSet] = useState([]);
+  const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
+  //const [dataSet, setDataSet] = useState([]);
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
   const [linearReg, setLinearReg] = useState([]);
@@ -49,38 +49,38 @@ function LinearRegression() {
       tot.push({x:curr.x, y:(curr.x*eq.b)+eq.a});
       return tot;
     }, []);  
-
       setA(eq.a);
       setB(eq.b);
-      setLinearReg(regressionData);     
+      setLinearReg(regressionData);  
+         
   };
 
-  const inputDataCallback = (data) => {    
+  const inputDataCallback = (data) => { 
       setDataSet(data);  
   };
 
   useEffect(()=> {
     if (dataSet.length === 0) {
       setLinearReg([]);
+      setA(0);
+      setB(0);
       return;
     }
-    updateLinRegGraph();    
+    updateLinRegGraph(); 
       
   }, [dataSet]);
 
 
   return (
     <div className = "linear-regression-component-container">  
-    <h1>Linear Regression</h1>
-    <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
+      <h1>Linear Regression</h1>
+      <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
       <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
       <div className = "graph-input-container">
-      <InputData  callbackFromParent = {inputDataCallback}/>      
+      <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
       <LineGraph  data = {dataSet} regData={linearReg} />  
       </div>
-      
-     
-      <h1>Y = {a.toFixed(3)} + {b.toFixed(3)}X</h1> 
+      <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2> 
     </div>
   );
 }
