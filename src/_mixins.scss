@@ -16,6 +16,21 @@
     }
 }
 
+@mixin ghostButtonOrange {
+    background-color: transparent;
+    color: #fd7735;
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    transition: all .1s linear;   
+    border: 1px solid;
+    outline: none;
+    &:hover {
+        background-color: #fd7735;    
+        color: white;    
+        cursor:pointer;
+    }
+}
+
 @mixin inputBorderBottom {
     border: none;
     border-bottom: 2px solid black;

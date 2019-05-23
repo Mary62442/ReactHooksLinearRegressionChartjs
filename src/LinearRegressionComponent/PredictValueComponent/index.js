@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import './styles.scss';
 
+function PredictValue(props) {
 
-function PredictValue() {
+    const [x, setX] = useState();
+    const [predictedValue, setPredictedValue] = useState();
+
+    useEffect(() => {
+        if (typeof x === "undefined") return;
+        if (x === "") {setPredictedValue("");return;}
+        setPredictedValue((props.a + (x*props.b)).toFixed(3));
+    }, [props.a, props.b, x]);
 
     return(
-        <div><p>Find the predicted value of: </p><input></input><p> = </p></div>
+        <div className = "predict-value-container">
+            <h4>Find the predicted value of: </h4>
+            <input type="text" value = {x} onChange={(e) => setX(e.target.value)}></input>
+            <h4> = {predictedValue}</h4>
+        </div>
     );
 }
 

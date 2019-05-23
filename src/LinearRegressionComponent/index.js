@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import LineGraph from './LineGraphComponent/index';
 import InputData from './InputDataComponent/index';
+import PredictValue from './PredictValueComponent/index';
 
 function LinearRegression() {
 
-  const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}])
+  const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}, {x:24, y:90},{x:32, y:111}])
   //const [dataSet, setDataSet] = useState([]);
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
@@ -46,7 +47,7 @@ function LinearRegression() {
   const updateLinRegGraph = async () => {
     let eq = await findLinRegEquation();   
     let regressionData = await dataSet.reduce((tot,curr)=> {
-      tot.push({x:curr.x, y:(curr.x*eq.b)+eq.a});
+      tot.push({x:curr.x, y:((curr.x*eq.b)+eq.a).toFixed(3)});
       return tot;
     }, []);  
       setA(eq.a);
@@ -80,7 +81,8 @@ function LinearRegression() {
       <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
       <LineGraph  data = {dataSet} regData={linearReg} />  
       </div>
-      <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2> 
+      <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2>
+      <PredictValue a = {a} b = {b}/> 
     </div>
   );
 }

@@ -13,6 +13,8 @@
     align-items: flex-end;
     justify-content: center;
 
+    button {@include buttonOrange()}
+
     button:first-of-type {
         margin-right:2em;
     }

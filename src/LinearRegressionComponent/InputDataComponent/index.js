@@ -41,7 +41,7 @@ function InputData(props) {
                         <label>Y:</label>    
                         <input type="text"  value={currentY} onChange={handleCurrentY}></input>   
                     </div>                    
-                    <input type="submit"></input>
+                    <input value = "Submit data" type="submit"></input>
                 </form>  
                 <div className ="input-cells-container">
                     {data}

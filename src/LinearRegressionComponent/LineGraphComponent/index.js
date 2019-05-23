@@ -33,8 +33,8 @@ function LineGraph(props) {
             datasets: [{                      
                 data: props.data,        
                 label: "Original Data",
-                borderColor: "lime",
-                backgroundColor: "lime",
+                borderColor: "#039800",
+                backgroundColor: "#039800",
                 fill: false,  
                 pointStyle: "crossRot", 
                 borderWidth:0.001,
