@@ -1,0 +1,17 @@
+@import '../../mixins';
+
+.json-file-button {
+ @include ghostButtonOrange;
+ font-size: 0.8em;
+}
+
+.data-cases-container {
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+        @include buttonOrange;
+    }
+}

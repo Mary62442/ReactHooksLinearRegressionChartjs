@@ -3,16 +3,15 @@ import './styles.scss';
 import LineGraph from './LineGraphComponent/index';
 import InputData from './InputDataComponent/index';
 import PredictValue from './PredictValueComponent/index';
+import DataCases from './DataCasesComponent/index';
 
 function LinearRegression() {
 
   const [dataSet, setDataSet] = useState([{x:0, y:2}, {x:5, y:12}, {x:7, y:44}, {x:8, y:45}, {x:11, y:55}, {x:17, y:57}, {x:20, y:82}, {x:24, y:90},{x:32, y:111}])
-  //const [dataSet, setDataSet] = useState([]);
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);  
   const [linearReg, setLinearReg] = useState([]);
-  const myDataFile = useRef();
-  const formUpload = useRef()
+  const [labels, setLabels] = useState();
 
  
   const calculateAlpha = (n, sigmaX, sigmaY, sigmaXY, sigmaXpow2) => {
@@ -58,7 +57,10 @@ function LinearRegression() {
       setLinearReg(regressionData);           
   };
 
-  const inputDataCallback = (data) => { 
+  const inputDataCallback = (data, labels) => { 
+    if (typeof labels !== 'undefined') {
+      setLabels(labels);
+    }
       setDataSet(data);  
   };
 
@@ -67,48 +69,21 @@ function LinearRegression() {
       setLinearReg([]);
       setA(0);
       setB(0);
+      setLabels({x:"X Axis", y:"Y Axis"});
       return;
     }
     updateLinRegGraph();     
   }, [dataSet]);
-
-
-  const acquireData = (e) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setDataSet(JSON.parse(event.target.result));  
-    };
-    reader.readAsText(e.target.files[0]); 
-  }
-
-  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
-
-  const getRouletteData = () => {
-    let ar = new Array();
-    for(let counter = 0; counter < 1000; counter ++) ar.push({x:counter,y:getRandomInt(37)});
-    setDataSet(ar);
-  };
-
-  const resetForm = ()=>{ formUpload.current.reset(); }
-
 
   return (
     <div className = "linear-regression-component-container">  
       <h1>Linear Regression</h1>
       <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
       <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
-      
-
-      <form ref = {formUpload}>
-
-            <label for="files" >Select JSON file</label>         
-            <input hidden id="files" ref={myDataFile}  onChange={acquireData} onClick = {resetForm} type="file" />
-      </form>
-
-      <button onClick = {getRouletteData}>Roulette case</button>
+      <DataCases callbackFromParent = {inputDataCallback}/>
       <div className = "graph-input-container">
       <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
-      <LineGraph  data = {dataSet} regData={linearReg} />  
+      <LineGraph  data = {dataSet} regData={linearReg} labels={labels}/>  
       </div>
       <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2>
       <PredictValue a = {a} b = {b}/> 

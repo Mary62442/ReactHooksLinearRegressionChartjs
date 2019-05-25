@@ -17,10 +17,19 @@ function LineGraph(props) {
             tot.push(+curr[z]);
             return tot;
         },[]);
-        let maxZ = Math.max(...zArray);        
-        let zStepSize = Math.ceil(maxZ/(zArray.length > 10 ? 10 : zArray.length));       
+        let maxZ = Math.max(...zArray);  
+        let minZ = Math.min(...zArray);            
+        let zRange = maxZ-minZ;   
+        let zStepSize = Math.ceil(zRange/(zArray.length > 10 ? 10 : zArray.length));       
         return zStepSize;
     }
+
+    useEffect(() => {
+        if (typeof props.labels !== 'undefined') {
+            setXAxisLabel(props.labels.x);
+            setYAxisLabel(props.labels.y);
+        }        
+    },[props.labels]);
     
 
     useEffect(() => {   
@@ -38,10 +47,8 @@ function LineGraph(props) {
                 fill: false,  
                 pointStyle: "crossRot", 
                 borderWidth:0.001,
-                pointBorderWidth:3,
-                hoverBorderWidth:3,                
-                pointHoverRadius:7,
-                pointRadius: 7,           
+                pointBorderWidth:3,                
+                pointRadius: 6,           
                 animation:false,
                 lineTension:0,
                 showLine: false           
@@ -52,10 +59,8 @@ function LineGraph(props) {
                 borderColor: "red",
                 backgroundColor: "red",
                 fill: false,           
-                borderWidth: 1,
-                pointRadius: 1,    
-                hoverBorderWidth:1,                
-                pointHoverRadius:1,       
+                borderWidth: props.data.length > 100 ? 1 : 2,
+                pointRadius: props.data.length > 100 ? 1 : 3, 
                 animation:false,
                 lineTension:0,
                 showLine: true                
@@ -76,8 +81,6 @@ function LineGraph(props) {
                         color:"rgba(0,0,0,0.3)",
                     },
                     ticks: {
-                        beginAtZero:true,
-                        min: 0,  
                         stepSize:findStepSize(props.data, "y")                     
                     },
                     scaleLabel: {
@@ -91,9 +94,7 @@ function LineGraph(props) {
                     gridLines: {
                         color:"rgba(0,0,0,0.3)",
                     },
-                    ticks: {                                                             
-                        beginAtZero:true,
-                        min: 0,
+                    ticks: {
                         stepSize:findStepSize(props.data, "x")                          
                     },
                     scaleLabel: {

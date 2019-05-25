@@ -1,6 +1,11 @@
+$orange : #fd7735;
+$darkOrange : #b85300;
+$inputBorderBottom : rgb(8, 8, 8);
+$inputBorderBottomFocus : rgb(85, 85, 85);
+
 @mixin buttonOrange {
-    background-color: #ff7403;
-    color: #fff;
+    background-color: $orange;
+    color: white;
     padding: 0.5em 1em;
     border-radius: 3px;
     -webkit-transition: all .1s linear;
@@ -10,7 +15,7 @@
     outline: none;
 
     &:hover {
-        background-color: #b85300;
+        background-color: $darkOrange;
         box-shadow: none;
         cursor:pointer;
     }
@@ -18,14 +23,14 @@
 
 @mixin ghostButtonOrange {
     background-color: transparent;
-    color: #fd7735;
+    color: $orange;
     padding: 0.5em 1em;
     border-radius: 3px;
     transition: all .1s linear;   
     border: 1px solid;
     outline: none;
     &:hover {
-        background-color: #fd7735;    
+        background-color: $orange;    
         color: white;    
         cursor:pointer;
     }
@@ -33,12 +38,12 @@
 
 @mixin inputBorderBottom {
     border: none;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $inputBorderBottom;
     outline:none;
     text-align:center;
     background-color:rgba(0,0,0,0);
     &:focus {
-        border-bottom:2px solid grey;
+        border-bottom:2px solid $inputBorderBottomFocus;
     }
 }
 
