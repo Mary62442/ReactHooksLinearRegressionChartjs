@@ -27,7 +27,7 @@ $inputBorderBottomFocus : rgb(85, 85, 85);
     padding: 0.5em 1em;
     border-radius: 3px;
     transition: all .1s linear;   
-    border: 1px solid;
+    border: 1px solid #fd7735;
     outline: none;
     &:hover {
         background-color: $orange;    
@@ -51,4 +51,11 @@ $inputBorderBottomFocus : rgb(85, 85, 85);
     margin:0;
     padding:0.5em 0;
     font-weight:500;
+}
+
+@mixin paragraph {
+    font-size: .9em;
+    color: #5e5e5e;
+    margin: .2em;
+    text-align: center;
 }

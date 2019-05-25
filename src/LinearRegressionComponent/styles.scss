@@ -6,12 +6,18 @@
     padding:1em 0 0 0;
 }
 
-.linear-regression-component-container {
-    text-align:center;
+.linear-regression-component-outer {    
     background: 
     radial-gradient(circle at left,transparent 50%,rgba(0,0,0,.04) 0),
     radial-gradient(circle at top left,transparent 50%,rgba(0,0,0,.04) 0),
     linear-gradient(0deg,#d0dbf3,rgba(208,219,243,0));
+}
+
+.linear-regression-component-container {   
+    margin:0 auto; 
+    text-align:center;
+    max-width:1200px;
+    
     input[type="submit"] {
         @include buttonOrange();
     }
@@ -27,11 +33,7 @@
         font-weight: 400;
     }
 
-    p {    
-        font-size: .9em;
-        color: #5e5e5e;
-        margin: .2em;
-        text-align: center;}
+    p {@include paragraph;}
 }
 
 

@@ -21,7 +21,7 @@ function DataCases(props) {
     const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
     const getRouletteData = () => {
-        let ar = new Array();
+        let ar = [];
         for(let counter = 0; counter < 500; counter ++) ar.push({x:counter,y:getRandomInt(37)});
         let labels = {x:"Spins", y:"Roulette number"};
         props.callbackFromParent(ar, labels);
@@ -40,14 +40,30 @@ function DataCases(props) {
     const resetForm = ()=>{ formUpload.current.reset(); }
 
     return( 
-        <div className = "data-cases-container">
-            <form ref = {formUpload}>
-                <label className = "json-file-button" htmlFor="files" >Select JSON file</label>         
-                <input hidden id="files" value = "" onChange={acquireJsonData} onClick = {resetForm} type="file" />
-            </form>
-            <button onClick = {getPopulationData}>Population growth case</button>
-            <button onClick = {getRouletteData}>Roulette case</button>
-            <button onClick = {getSalesData}>Sales/Advertising case</button>
+        <div className = "data-cases-main">
+            <h3>Linear Regression Cases</h3>
+            <div>
+            <div className = "data-cases-explanations-container">
+                <p><b>The following buttons display different examples of linear regression data:</b></p>
+                <ul>
+                    <li>To upload a <b>JSON file</b> make sure the data is written according to the syntax:
+                        <p>[ &#123; "x":1, "y":2 &#125;, &#123; "x":2, "y":5 &#125;, &#123; "x":3, "y":9 &#125;]</p>
+                    </li>
+                    <li>The <b>Population Growth </b>example shows the world population growth in billions through the years.</li>
+                    <li>The <b>Roulette Spin</b> randomly acquires 500 random numbers between 0 and 36 to simulate Roulette spins and plot a regression line which should ideally remain straight at 18.5 on the Y Axis.</li>
+                    <li>The <b>Sales/Advertising</b> example is a simple representation of the increase of sales when more is spent in advertising.</li>
+                </ul>
+            </div>
+            <div className = "data-cases-buttons-container">
+                <form ref = {formUpload}>
+                    <label className = "json-file-button" htmlFor="files" >Select JSON file</label>         
+                    <input hidden id="files" value = "" onChange={acquireJsonData} onClick = {resetForm} type="file" />
+                </form>
+                <button onClick = {getPopulationData}>Population Growth</button>
+                <button onClick = {getRouletteData}>Roulette Spins</button>
+                <button onClick = {getSalesData}>Sales/Advertising</button>
+            </div>
+            </div>
         </div>
     )
 };

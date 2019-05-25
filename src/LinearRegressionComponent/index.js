@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import LineGraph from './LineGraphComponent/index';
 import InputData from './InputDataComponent/index';
@@ -76,17 +76,19 @@ function LinearRegression() {
   }, [dataSet]);
 
   return (
-    <div className = "linear-regression-component-container">  
-      <h1>Linear Regression</h1>
-      <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
-      <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
-      <DataCases callbackFromParent = {inputDataCallback}/>
-      <div className = "graph-input-container">
-      <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
-      <LineGraph  data = {dataSet} regData={linearReg} labels={labels}/>  
+    <div className = "linear-regression-component-outer">
+      <div className = "linear-regression-component-container">  
+        <h1>Linear Regression</h1>
+        <p>A case study employing Chart.js for the visualisation of scattered data and linear regression line of best fit.</p>    
+        <p>The user can input data, change the axes' labels and find out the likely outcome of a value given the linear regression equation.</p>      
+        <DataCases callbackFromParent = {inputDataCallback}/>
+        <div className = "graph-input-container">
+        <InputData  data = {dataSet} callbackFromParent = {inputDataCallback}/>      
+        <LineGraph  data = {dataSet} regData={linearReg} labels={labels}/>  
+        </div>
+        <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2>
+        <PredictValue a = {a} b = {b}/> 
       </div>
-      <h2>Linear Regression Equation: Y = {a.toFixed(3)} + {b.toFixed(3)}X</h2>
-      <PredictValue a = {a} b = {b}/> 
     </div>
   );
 }

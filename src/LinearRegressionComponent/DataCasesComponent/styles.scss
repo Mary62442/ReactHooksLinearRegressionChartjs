@@ -5,13 +5,62 @@
  font-size: 0.8em;
 }
 
-.data-cases-container {
-    padding: 2em;
+.data-cases-main {
+    padding: 1em;
+    h3 {
+        @include subtitle
+    }
+    p{
+        text-align:justify;
+        padding: 0 0 0.5em 0;
+    }
+
+    > div {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.data-cases-explanations-container{
+    width:40%;
+    ul {
+        margin:0;
+        border-left: 1px solid currentColor;
+        padding: 0 1em;
+        list-style-type: none;
+        text-align:justify;
+        li {
+            @include paragraph;
+            text-align:justify;
+            padding:0.3em 0 0 0;
+            p {
+                text-align:justify;
+                font-family:'Courier New', Courier, monospace;                
+            }
+        }
+    }
+}
+
+.data-cases-buttons-container {   
+    width:30%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-
+    justify-content: center;
+    flex-direction:column;
     button {
         @include buttonOrange;
+        margin:1em 0 0 0;
     }
+}
+
+@media (max-width:800px) {
+    .data-cases-main { 
+        >div {
+            flex-direction:column;
+        }
+    }
+
+    .data-cases-explanations-container {width:90%}
+    .data-cases-buttons-container {width:100%; padding: 1em 0 0 0}
 }
